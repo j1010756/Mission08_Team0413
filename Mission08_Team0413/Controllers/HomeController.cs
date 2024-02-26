@@ -6,27 +6,29 @@ namespace Mission08_Team0413.Controllers
 {
     public class HomeController : Controller
     {
-        private readonly ILogger<HomeController> _logger;
-
-        public HomeController(ILogger<HomeController> logger)
+        // make object of context
+        private ITaskRepository _repo;
+        public HomeController(ITaskRepository temp)
         {
-            _logger = logger;
+            _repo = temp;
         }
 
+        [HttpGet]
         public IActionResult Index()
         {
-            return View();
+
+            return View(new TaskEntry());
         }
 
-        public IActionResult Privacy()
+        [HttpPost]
+        public IActionResult Index(TaskEntry t)
         {
-            return View();
-        }
-
-        [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
-        public IActionResult Error()
-        {
-            return View(new ErrorViewModel { RequestId = Activity.Current?.Id ?? HttpContext.TraceIdentifier });
+            if (ModelState.IsValid)
+            {
+                // call add manager from repo
+                _repo.AddTask(t);
+            }
+            return View(new TaskEntry());
         }
     }
 }
