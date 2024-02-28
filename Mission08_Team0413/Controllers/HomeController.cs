@@ -1,6 +1,8 @@
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 using Mission08_Team0413.Models;
 using System.Diagnostics;
+using System.Diagnostics.Contracts;
 
 namespace Mission08_Team0413.Controllers
 {
@@ -35,15 +37,65 @@ namespace Mission08_Team0413.Controllers
         // Desired Routes for the application
 
         // Route to the Quadrant view, to display the tasks in the respective quadrants
+        public IActionResult Quadrant()
+        {
+            return View("Quadrant");
+        }
+
         //Get Rout to CreateTask view, to create a new task (likely will have to pass a new TaskEntry object to the view)
+        [HttpGet] 
+        public IActionResult CreateTask() 
+        {
+            return View();
+        }
         //Post Route to CreateTask view, to create a new task
 
+        [HttpPost]
+        public IActionResult CreateTask(TaskEntry t)
+        {
+            if (ModelState.IsValid)
+            {
+                _repo.AddTask(t);
+            }
+            return View(new TaskEntry());
+        }
+
         //Get Route to the CreateTask view, but pass it an existing task to edit
+        public IActionResult Edit(int id)
+        {
+            var recordToEdit = _repo.Tasks
+                .Single(x => x.TaskId == id);
+
+            return View("CreateTask", recordToEdit);
+        }
         //Post Route to the CreateTask view, to edit an existing task
+        [HttpPost]
+        public IActionResult Edit(TaskEntry updatedInfo)
+        {
+            _repo.Update(updatedInfo);
+            _repo.SaveChanges();
 
+            return RedirectToAction("Quadrant");
+        }
         //Get Route to the DeleteTask view, to delete an existing task
-        //Post Route to the DeleteTask view, to delete an existing task
+        [HttpGet]
+        public IActionResult Delete(int id)
+        {
+            var recordToDelete = _repo.Tasks
+                .Single(x => x.TaskId == id);
 
+            return View(recordToDelete);
+        }
+        //Post Route to the DeleteTask view, to delete an existing task
+        [HttpPost]
+
+        public IActionResult Delete(TaskEntry deleteTask)
+        {
+            _repo.Tasks.Remove(deleteTask);
+            _repo.SaveChanges();
+
+            return RedirectToAction("Quadrant");
+        }
 
 
     }
