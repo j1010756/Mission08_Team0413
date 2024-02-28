@@ -5,20 +5,38 @@
     {
         // private variable to be seen by each method
 
-        private TaskContext _repo;
+        private TaskContext _context;
         public EFTaskRepository(TaskContext temp)
         {
-            _repo = temp;
+            _context = temp;
         }
 
-        // get list of managers from temp file
-        public List<TaskEntry> Tasks => _repo.Tasks.ToList();
+        // get list of tasks from temp file
+        public List<TaskEntry> Tasks => _context.Tasks.ToList();
 
         public void AddTask(TaskEntry task)
         {
-            // add manager and save changes, middle man for this stuff
-            _repo.Add(task);
-            _repo.SaveChanges();
+            // add task and save changes, middle man for this stuff
+            _context.Add(task);
+            _context.SaveChanges();
+        }
+
+        public void DeleteTask(TaskEntry record)
+        {
+            // remove record
+            _context.Tasks.Remove(record);
+
+            // confirm deletion
+            _context.SaveChanges();
+        }
+
+        public void EditTask(TaskEntry updatedTask)
+        {
+            // update info
+            _context.Update(updatedTask);
+
+            // save change to db
+            _context.SaveChanges();
         }
     }
 }

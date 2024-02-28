@@ -18,7 +18,7 @@ namespace Mission08_Team0413.Controllers
         [HttpGet]
         public IActionResult Index()
         {
-
+            // return task object
             return View(new TaskEntry());
         }
 
@@ -27,7 +27,7 @@ namespace Mission08_Team0413.Controllers
         {
             if (ModelState.IsValid)
             {
-                // call add manager from repo
+                // call add task from repo
                 _repo.AddTask(t);
             }
             return View(new TaskEntry());
@@ -70,12 +70,19 @@ namespace Mission08_Team0413.Controllers
         }
         //Post Route to the CreateTask view, to edit an existing task
         [HttpPost]
-        public IActionResult Edit(TaskEntry updatedInfo)
+        public IActionResult Edit(TaskEntry updatedTask)
         {
-            _repo.Update(updatedInfo);
-            _repo.SaveChanges();
+            if (ModelState.IsValid)
+            {
+                // access repo to edit task
+                _repo.EditTask(updatedTask);
 
-            return RedirectToAction("Quadrant");
+                return RedirectToAction("Quadrant");
+            }
+            else
+            {
+                return View("CreateTask", updatedTask);
+            }
         }
         //Get Route to the DeleteTask view, to delete an existing task
         [HttpGet]
@@ -89,10 +96,9 @@ namespace Mission08_Team0413.Controllers
         //Post Route to the DeleteTask view, to delete an existing task
         [HttpPost]
 
-        public IActionResult Delete(TaskEntry deleteTask)
+        public IActionResult Delete(TaskEntry record)
         {
-            _repo.Tasks.Remove(deleteTask);
-            _repo.SaveChanges();
+            _repo.DeleteTask(record);
 
             return RedirectToAction("Quadrant");
         }
