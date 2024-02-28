@@ -30,5 +30,21 @@ namespace Mission08_Team0413.Controllers
             }
             return View(new TaskEntry());
         }
+
+
+        // Desired Routes for the application
+
+        // Route to the Quadrant view, to display the tasks in the respective quadrants
+        //Get Rout to CreateTask view, to create a new task (likely will have to pass a new TaskEntry object to the view)
+        //Post Route to CreateTask view, to create a new task
+
+        //Get Route to the CreateTask view, but pass it an existing task to edit
+        //Post Route to the CreateTask view, to edit an existing task
+
+        //Get Route to the DeleteTask view, to delete an existing task
+        //Post Route to the DeleteTask view, to delete an existing task
+
+
+
     }
 }
