@@ -11,6 +11,10 @@ namespace Mission08_Team0413.Models
 
         public int TaskId { get; set; }
 
+        [Required]
+        // task
+        public char Task {  get; set; }
+
         // due date
         public DateOnly? DueDate { get; set; }
 
