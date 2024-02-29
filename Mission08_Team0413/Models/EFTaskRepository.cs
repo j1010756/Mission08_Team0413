@@ -41,5 +41,11 @@ namespace Mission08_Team0413.Models
             // save change to db
             _context.SaveChanges();
         }
+
+        // Method to retrieve categories
+        public List<Category> GetCategories()
+        {
+            return _context.Categories.ToList();
+        }
     }
 }
