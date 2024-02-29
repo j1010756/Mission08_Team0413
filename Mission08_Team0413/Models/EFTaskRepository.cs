@@ -21,6 +21,13 @@
             _context.SaveChanges();
         }
 
+        public void CategoryViewBag()
+        {
+            _context.Categories
+                .OrderBy(x => x.CategoryName)
+                .ToList();
+        }
+
         public void DeleteTask(TaskEntry record)
         {
             // remove record

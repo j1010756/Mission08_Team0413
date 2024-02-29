@@ -9,9 +9,11 @@
         public void AddTask(TaskEntry task);
 
         // edit task
-        public void EditTask(TaskEntry task);
+        public void EditTask(TaskEntry updatedTask);
 
         // delete task
-        public void DeleteTask(TaskEntry task);
+        public void DeleteTask(TaskEntry record);
+
+        public void CategoryViewBag();
     }
 }
