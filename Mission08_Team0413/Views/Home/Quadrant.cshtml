@@ -3,3 +3,29 @@
 *@
 @{
 }
+
+@model List<TaskEntry>
+
+<table class="table table-bordered table-striped">
+    <thhead class="fontweight: bold">
+        <tr class="table-primary">
+            <td>Category</td>
+            <td>Due Date</td>
+            <td>Completed</td>
+            @*<td></td>
+            <td></td>*@
+        </tr>
+    </thhead>
+    <tbody>
+        @foreach (var i in Model)
+        {
+            <tr>
+                <td>@i.Category.CategoryName</td>
+                <td>@i.DueDate</td>
+                <td>@i.Completed</td>
+                @*<td><a class="btn btn-secondary" asp-controller="Home" asp-action="Edit" asp-route-id="@i.MovieId">Edit</a></td>
+                <td><a class="btn btn-danger" asp-controller="Home" asp-action="Delete" asp-route-id="@i.MovieId">Delete</a></td>*@
+            </tr>
+        }
+    </tbody>
+</table>

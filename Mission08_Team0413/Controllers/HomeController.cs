@@ -39,7 +39,9 @@ namespace Mission08_Team0413.Controllers
         // Route to the Quadrant view, to display the tasks in the respective quadrants
         public IActionResult Quadrant()
         {
-            return View("Quadrant");
+            var tasks = _repo.Tasks.ToList();
+
+            return View(tasks);
         }
 
         //Get Rout to CreateTask view, to create a new task (likely will have to pass a new TaskEntry object to the view)
