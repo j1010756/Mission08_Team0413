@@ -69,11 +69,12 @@ namespace Mission08_Team0413.Migrations
                     b.Property<DateOnly?>("DueDate")
                         .HasColumnType("TEXT");
 
+                    b.Property<string>("EnteredTask")
+                        .IsRequired()
+                        .HasColumnType("TEXT");
+
                     b.Property<int>("Quadrant")
                         .HasColumnType("INTEGER");
-
-                    b.Property<char>("Task")
-                        .HasColumnType("TEXT");
 
                     b.HasKey("TaskId");
 

@@ -11,8 +11,8 @@ using Mission08_Team0413.Models;
 namespace Mission08_Team0413.Migrations
 {
     [DbContext(typeof(TaskContext))]
-    [Migration("20240229223643_Initial3")]
-    partial class Initial3
+    [Migration("20240229225212_Initial")]
+    partial class Initial
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -72,11 +72,12 @@ namespace Mission08_Team0413.Migrations
                     b.Property<DateOnly?>("DueDate")
                         .HasColumnType("TEXT");
 
+                    b.Property<string>("EnteredTask")
+                        .IsRequired()
+                        .HasColumnType("TEXT");
+
                     b.Property<int>("Quadrant")
                         .HasColumnType("INTEGER");
-
-                    b.Property<char>("Task")
-                        .HasColumnType("TEXT");
 
                     b.HasKey("TaskId");
 

@@ -13,7 +13,7 @@ namespace Mission08_Team0413.Models
 
         [Required]
         // task
-        public char Task {  get; set; }
+        public string EnteredTask {  get; set; }
 
         // due date
         public DateOnly? DueDate { get; set; }
