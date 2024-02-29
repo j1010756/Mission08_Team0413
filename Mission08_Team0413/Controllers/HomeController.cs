@@ -48,6 +48,7 @@ namespace Mission08_Team0413.Controllers
         [HttpGet] 
         public IActionResult CreateTask() 
         {
+            ViewBag.Categories = _repo.Categories;
             return View();
         }
         //Post Route to CreateTask view, to create a new task

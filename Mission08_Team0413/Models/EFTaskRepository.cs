@@ -16,6 +16,9 @@ namespace Mission08_Team0413.Models
         // get list of tasks from temp file
         public List<TaskEntry> Tasks => _context.Tasks.ToList();
 
+        // get list of categories
+        public List<Category> Categories => _context.Categories.ToList();
+
         public void AddTask(TaskEntry task)
         {
             // add task and save changes, middle man for this stuff
@@ -40,12 +43,6 @@ namespace Mission08_Team0413.Models
 
             // save change to db
             _context.SaveChanges();
-        }
-
-        // Method to retrieve categories
-        public List<Category> GetCategories()
-        {
-            return _context.Categories.ToList();
         }
     }
 }
