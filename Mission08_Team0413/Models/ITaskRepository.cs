@@ -13,7 +13,5 @@
 
         // delete task
         public void DeleteTask(TaskEntry record);
-
-        public void CategoryViewBag();
     }
 }
