@@ -1,4 +1,6 @@
-﻿namespace Mission08_Team0413.Models
+﻿using Microsoft.EntityFrameworkCore.Metadata.Internal;
+
+namespace Mission08_Team0413.Models
 {
     // make class inherit from instance
     public class EFTaskRepository : ITaskRepository
@@ -21,12 +23,6 @@
             _context.SaveChanges();
         }
 
-        public void CategoryViewBag()
-        {
-            _context.Categories
-                .OrderBy(x => x.CategoryName)
-                .ToList();
-        }
 
         public void DeleteTask(TaskEntry record)
         {
