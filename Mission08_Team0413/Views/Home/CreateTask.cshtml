@@ -56,7 +56,14 @@
 
                 <button type="submit" class="btn btn-primary">Submit</button>
             </form>
+            @if (ViewBag.SuccessMessage != null)
+            {
+                <div class="alert alert-success" role="alert">
+                    @ViewBag.SuccessMessage
+                </div>
+            }
         </div>
+
 
         <!-- Image section occupying 2/3 of the container width -->
         <div class="col-md-8">
@@ -64,10 +71,5 @@
         </div>
     </div>
 
-    @if (ViewBag.SuccessMessage != null)
-    {
-        <div class="alert alert-success" role="alert">
-            @ViewBag.SuccessMessage
-        </div>
-    }
+    
 </div>
