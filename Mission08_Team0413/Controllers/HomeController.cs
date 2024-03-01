@@ -73,6 +73,7 @@ namespace Mission08_Team0413.Controllers
         }
 
         //Get Route to the CreateTask view, but pass it an existing task to edit
+        [HttpGet]
         public IActionResult Edit(int id)
         {
             var recordToEdit = _repo.Tasks
@@ -81,6 +82,7 @@ namespace Mission08_Team0413.Controllers
             return View("CreateTask", recordToEdit);
         }
         //Post Route to the CreateTask view, to edit an existing task
+
         [HttpPost]
         public IActionResult Edit(TaskEntry updatedTask)
         {
