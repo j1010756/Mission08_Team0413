@@ -1,71 +1,73 @@
-﻿@*
-    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
-*@
-@{
-}
-
-@model Mission08_Team0413.Models.TaskEntry
-
+﻿@model Mission08_Team0413.Models.TaskEntry
 
 @{
     ViewData["Title"] = "CreateTask";
 }
 
-
+@{
+    ViewData["Title"] = "CreateTask";
+}
 
 <h1>Add Task</h1>
 
-<form method="post" >
-    <label asp-for="EnteredTask">Task</label>
-<input asp-for="EnteredTask" class="form-control" required/>
+<div class="container">
+    <div class="row">
+        <!-- Form section occupying 1/3 of the container width -->
+        <div class="col-md-4">
+            <form method="post">
+                <div class="form-group">
+                    <label asp-for="EnteredTask">Task</label>
+                    <input asp-for="EnteredTask" class="form-control" required />
+                </div>
 
-<br /><br />
+                <div class="form-group">
+                    <label asp-for="DueDate">Due Date</label>
+                    <input asp-for="DueDate" type="date" class="form-control" />
+                </div>
 
-    <label asp-for="DueDate">Due Date</label>
-<input asp-for="DueDate" type="date" class="form-control" />
+                <div class="form-group">
+                    <label asp-for="Quadrant">Quadrant</label>
+                    <select asp-for="Quadrant" class="form-control">
+                        <option value="1">Important and Urgent</option>
+                        <option value="2">Important but not Urgent</option>
+                        <option value="3">Not Important but Urgent</option>
+                        <option value="4">Not Important and Not Urgent</option>
+                    </select>
+                </div>
 
-<br /><br />
-    
-    <label asp-for="Quadrant">Quadrant</label>
+                <div class="form-group">
+                    <label asp-for="Category">Category</label>
+                    <select asp-for="CategoryId" class="form-control">
+                        <option value="">Select a Category</option>
+                        @foreach (var c in ViewBag.Categories)
+                        {
+                            <option value="@c.CategoryId">@c.CategoryName</option>
+                        }
+                    </select>
+                </div>
 
-<select asp-for="Quadrant">
-    <option value="1">Important and Urgent</option>
-    <option value="2">Important but not Urgent</option>
-    <option value="3">Not Important but Urgent</option>
-    <option value="4">Not Important and Not Urgent</option>
-</select>
+                <div class="form-group">
+                    <label asp-for="Completed">Completed</label>
+                    <select asp-for="Completed" class="form-control">
+                        <option value="true">Yes</option>
+                        <option value="false">No</option>
+                    </select>
+                </div>
 
-<br /><br />
+                <button type="submit" class="btn btn-primary">Submit</button>
+            </form>
+        </div>
 
-
-    
-
-    <!--Use this if you want to hard code it-->
-     <label asp-for="Category">Category</label>
-    <select asp-for="CategoryId">
-        <option value="">Select a Category</option>
-        @foreach(Category c in ViewBag.Categories)
-        {
-            <option value="@c.CategoryId">@c.CategoryName</option>
-        })
-    </select>
-            
-
-<br /><br />
-
-    <label asp-for="Completed">Completed</label>
-        <select asp-for="Completed" class="form-control">
-            <option value="true">Yes</option>
-            <option value="false">No</option>
-        </select>
-
-<br /><br />
-    <button type="submit" class="btn btn-primary">Submit</button>
-
-</form>
-@if (ViewBag.SuccessMessage != null)
-{
-    <div class="alert alert-success" role="alert">
-        @ViewBag.SuccessMessage
+        <!-- Image section occupying 2/3 of the container width -->
+        <div class="col-md-8">
+            <img src="~/img/HiltonPic.jpg" alt="Hilton, The man the myth the legend" class="img-fluid" />
+        </div>
     </div>
-}
+
+    @if (ViewBag.SuccessMessage != null)
+    {
+        <div class="alert alert-success" role="alert">
+            @ViewBag.SuccessMessage
+        </div>
+    }
+</div>
