@@ -16,13 +16,8 @@
 <h1>Add Task</h1>
 
 <form method="post" >
-
-    <input type ="hidden" asp-for="TaskId" />
-
-
-
-    <label asp-for="EnteredTask">Task Description</label>
-<input asp-for="EnteredTask" class="form-control" required/>
+    <label asp-for="TaskId">Task</label>
+<input asp-for="TaskId" class="form-control" required/>
 
 <br /><br />
 
@@ -43,7 +38,7 @@
      <label asp-for="CategoryId">Category</label>
     <select>
         <option value="">Select a Category</option>
-        @foreach(var category in ViewBag.Categories)
+        @foreach(var category in Model.Categories)
         {
             <option value="@category.CategoryId">@category.CategoryName</option>
         })
