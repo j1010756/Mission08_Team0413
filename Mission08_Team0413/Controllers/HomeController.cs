@@ -50,8 +50,8 @@ namespace Mission08_Team0413.Controllers
         [HttpGet] 
         public IActionResult CreateTask() 
         {
-            ViewBag.Categories = _repo.Categories;
-            return View();
+            ViewBag.Categories = _repo.Categories.ToList();
+            return View("CreateTask", new TaskEntry());
         }
         //Post Route to CreateTask view, to create a new task
 
@@ -61,8 +61,15 @@ namespace Mission08_Team0413.Controllers
             if (ModelState.IsValid)
             {
                 _repo.AddTask(t);
+                ViewBag.Categories = _repo.Categories.ToList();
+                ViewBag.SuccessMessage = "Form submitted successfully!";
+                return View("CreateTask", t);
             }
-            return View(new TaskEntry());
+            else
+            {
+                ViewBag.Categories = _repo.Categories.ToList();
+                return View(t);
+            }
         }
 
         //Get Route to the CreateTask view, but pass it an existing task to edit
