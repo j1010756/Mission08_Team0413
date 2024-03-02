@@ -3,3 +3,146 @@
 *@
 @{
 }
+
+@model Dictionary<int,List<TaskEntry>>
+
+<div class="h1" style="text-align: center">Quadrant View</div>
+<div class="h3" style="text-align: center">Welcome to your to-do list!</div>
+<div class="h3" style="text-align: center">Click the <span style="color: green">green checkbox</span> (✅) to complete tasks.</div>
+<br />
+
+<div class="container border border-black" style="padding: 10px 20px; background-color:#e6d590; border-radius: 15px">
+    <div class="row" style="height: 40px; text-align:center; margin-bottom: 20px">
+        <div class="col-1"></div>
+        <div class="col-5 align-content-center h2">Urgent</div>
+        <div class="col-5 align-content-center h2">Not Urgent</div>
+    </div>
+    <div class="row">
+        <div class="col-1 align-content-center h2" style="writing-mode:vertical-lr; text-orientation:mixed; text-align:center">Important</div>
+        <div class="col-5" style="border-radius: 15px">
+            @if (Model.ContainsKey(1)) {
+                <table class="table">
+                    <thhead style="font-weight: bold">
+                        <tr class="table-secondary">
+                            <td></td>
+                            <td>Category</td>
+                            <td>Task</td>
+                            <td>Due Date</td>
+                            <td></td>
+                            <td></td>
+                        </tr>
+                    </thhead>
+                    <tbody>
+                        @foreach (TaskEntry i in Model[1])
+                        {
+                            <tr class="table-light">
+                                <td><a style="text-decoration: none" asp-controller="Home" asp-action="CompleteTask" asp-route-id="@i.TaskId">✅</a></td>
+                                <td>@i.Category.CategoryName</td>
+                                <td>@i.EnteredTask</td>
+                                <td>@i.DueDate</td>
+                                <td><a asp-controller="Home" asp-action="Edit" asp-route-id="@i.TaskId">Edit</a></td>
+                                <td><a asp-controller="Home" asp-action="Delete" asp-route-id="@i.TaskId">Delete</a></td>
+                            </tr>
+                        }
+                    </tbody>
+                </table>
+            }
+        </div>
+        <div class="col-5" style="border-radius: 15px">
+            @if (Model.ContainsKey(2))
+            {
+                <table class="table">
+                    <thhead style="font-weight: bold">
+                        <tr class="table-secondary">
+                            <td></td>
+                            <td>Category</td>
+                            <td>Task</td>
+                            <td>Due Date</td>
+                            <td></td>
+                            <td></td>
+                        </tr>
+                    </thhead>
+                    <tbody>
+                        @*Q1*@
+                        @foreach (TaskEntry i in Model[2])
+                        {
+                            <tr class="table-light">
+                                <td><a style="text-decoration: none" asp-controller="Home" asp-action="CompleteTask" asp-route-id="@i.TaskId">✅</a></td>
+                                <td>@i.Category.CategoryName</td>
+                                <td>@i.EnteredTask</td>
+                                <td>@i.DueDate</td>
+                                <td><a asp-controller="Home" asp-action="Edit" asp-route-id="@i.TaskId">Edit</a></td>
+                                <td><a asp-controller="Home" asp-action="Delete" asp-route-id="@i.TaskId">Delete</a></td>
+                            </tr>
+                        }
+                    </tbody>
+                </table>
+            }
+        </div>
+    </div>
+    <div class="row" style="margin-top: 30px">
+        <div class="col-1 align-content-center h2" style="writing-mode:vertical-lr; text-orientation:mixed; text-align:center">Not Important</div>
+        <div class="col-5" style="border-radius: 15px">
+            @if (Model.ContainsKey(3))
+            {
+                <table class="table">
+                    <thhead style="font-weight: bold">
+                        <tr class="table-secondary">
+                            <td></td>
+                            <td>Category</td>
+                            <td>Task</td>
+                            <td>Due Date</td>
+                            <td></td>
+                            <td></td>
+                        </tr>
+                    </thhead>
+                    <tbody>
+                        @*Q1*@
+                        @foreach (TaskEntry i in Model[3])
+                        {
+                            <tr class="table-light">
+                                <td><a style="text-decoration: none" asp-controller="Home" asp-action="CompleteTask" asp-route-id="@i.TaskId">✅</a></td>
+                                <td>@i.Category.CategoryName</td>
+                                <td>@i.EnteredTask</td>
+                                <td>@i.DueDate</td>
+                                <td><a asp-controller="Home" asp-action="Edit" asp-route-id="@i.TaskId">Edit</a></td>
+                                <td><a asp-controller="Home" asp-action="Delete" asp-route-id="@i.TaskId">Delete</a></td>
+                            </tr>
+                        }
+                    </tbody>
+                </table>
+            }
+        </div>
+        <div class="col-5" style="border-radius: 15px">
+            @if (Model.ContainsKey(4))
+            {
+                <table class="table">
+                    <thhead style="font-weight: bold">
+                        <tr class="table-secondary">
+                            <td></td>
+                            <td>Category</td>
+                            <td>Task</td>
+                            <td>Due Date</td>
+                            <td></td>
+                            <td></td>
+                        </tr>
+                    </thhead>
+                    <tbody>
+                        @*Q1*@
+                        @foreach (TaskEntry i in Model[4])
+                        {
+                            <tr class="table-light">
+                                <td><a style="text-decoration: none" asp-controller="Home" asp-action="CompleteTask" asp-route-id="@i.TaskId">✅</a></td>
+                                <td>@i.Category.CategoryName</td>
+                                <td>@i.EnteredTask</td>
+                                <td>@i.DueDate</td>
+                                <td><a asp-controller="Home" asp-action="Edit" asp-route-id="@i.TaskId">Edit</a></td>
+                                <td><a asp-controller="Home" asp-action="Delete" asp-route-id="@i.TaskId">Delete</a></td>
+                            </tr>
+                        }
+                    </tbody>
+                </table>
+            }
+        </div>
+    </div>
+</div>

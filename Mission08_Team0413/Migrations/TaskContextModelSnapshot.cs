@@ -63,10 +63,14 @@ namespace Mission08_Team0413.Migrations
                     b.Property<int?>("CategoryId")
                         .HasColumnType("INTEGER");
 
-                    b.Property<bool?>("Completed")
+                    b.Property<bool>("Completed")
                         .HasColumnType("INTEGER");
 
                     b.Property<DateOnly?>("DueDate")
+                        .HasColumnType("TEXT");
+
+                    b.Property<string>("EnteredTask")
+                        .IsRequired()
                         .HasColumnType("TEXT");
 
                     b.Property<int>("Quadrant")

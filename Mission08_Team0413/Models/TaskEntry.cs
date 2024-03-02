@@ -11,6 +11,10 @@ namespace Mission08_Team0413.Models
 
         public int TaskId { get; set; }
 
+        [Required]
+        // task
+        public string EnteredTask {  get; set; }
+
         // due date
         public DateOnly? DueDate { get; set; }
 
@@ -22,7 +26,7 @@ namespace Mission08_Team0413.Models
         [ForeignKey("CategoryId")]
         public int? CategoryId { get; set; }
         public Category? Category { get; set; }
-
-        public bool? Completed { get; set; }
+        [Required]
+        public bool Completed { get; set; }
     }
 }

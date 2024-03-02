@@ -1,5 +1,79 @@
-﻿@*
-    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
-*@
+﻿@model Mission08_Team0413.Models.TaskEntry
+
 @{
+    ViewData["Title"] = "CreateTask";
 }
+
+@{
+    ViewData["Title"] = "CreateTask";
+}
+
+<h1>Add Task</h1>
+
+<div class="container">
+    <div class="row">
+        <!-- Form section occupying 1/3 of the container width -->
+        <div class="col-md-4">
+            <form method="post">
+                <input type="hidden" asp-for="TaskId">
+
+                <div class="form-group">
+                    <label asp-for="EnteredTask">Task</label>
+                    <input asp-for="EnteredTask" class="form-control" required />
+                </div>
+
+                <div class="form-group">
+                    <label asp-for="DueDate">Due Date</label>
+                    <input asp-for="DueDate" type="date" class="form-control" />
+                </div>
+
+                <div class="form-group">
+                    <label asp-for="Quadrant">Quadrant</label>
+                    <select asp-for="Quadrant" class="form-control">
+                        <option value="1">Important and Urgent</option>
+                        <option value="2">Important but not Urgent</option>
+                        <option value="3">Not Important but Urgent</option>
+                        <option value="4">Not Important and Not Urgent</option>
+                    </select>
+                </div>
+
+                <div class="form-group">
+                    <label asp-for="CategoryId">Category</label>
+                    <select asp-for="CategoryId" class="form-control">
+                        <option value="">Select a Category</option>
+                        @foreach (Category c in ViewBag.Categories)
+                        {
+                            <option value="@c.CategoryId">@c.CategoryName</option>
+                        }
+                    </select>
+                </div>
+
+                <div class="form-group">
+                    <label asp-for="Completed">Completed</label>
+                    <select asp-for="Completed" class="form-control">
+                        <option value="true">Yes</option>
+                        <option value="false">No</option>
+                    </select>
+                </div>
+
+                <button type="submit" class="btn btn-primary">Submit</button>
+                <div asp-validation-summary="All"></div>
+            </form>
+            @if (ViewBag.SuccessMessage != null)
+            {
+                <br />
+                <div class="alert alert-success" role="alert">
+                    @ViewBag.SuccessMessage
+                </div>
+            }
+        </div>
+
+
+        <!-- Image section occupying 2/3 of the container width -->
+        <div class="col-md-8">
+            <img src="~/img/HiltonPic.jpg" alt="Hilton, The man the myth the legend" class="img-fluid" />
+        </div>
+    </div>
+
+    
+</div>

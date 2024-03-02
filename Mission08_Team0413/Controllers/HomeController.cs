@@ -1,6 +1,10 @@
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 using Mission08_Team0413.Models;
 using System.Diagnostics;
+using System.Diagnostics.Contracts;
+
+//Test to see if Github is working
 
 namespace Mission08_Team0413.Controllers
 {
@@ -16,7 +20,7 @@ namespace Mission08_Team0413.Controllers
         [HttpGet]
         public IActionResult Index()
         {
-
+            // return task object
             return View(new TaskEntry());
         }
 
@@ -25,10 +29,122 @@ namespace Mission08_Team0413.Controllers
         {
             if (ModelState.IsValid)
             {
-                // call add manager from repo
+                // call add task from repo
                 _repo.AddTask(t);
             }
             return View(new TaskEntry());
         }
+
+
+        // Desired Routes for the application
+
+        // Route to the Quadrant view, to display the tasks in the respective quadrants
+        public IActionResult Quadrant()
+        {
+            var taskList = _repo.Tasks.Where(x => !x.Completed).ToList();
+
+            Dictionary<int,List<TaskEntry>> taskDict = new Dictionary<int,List<TaskEntry>>();
+
+            foreach (TaskEntry task in taskList)
+            {
+                if (!taskDict.ContainsKey(task.Quadrant))
+                {
+                    taskDict.Add(task.Quadrant, new List<TaskEntry>());
+                }
+
+                taskDict[task.Quadrant].Add(task);
+            }
+
+            return View(taskDict);
+        }
+
+        //Get Rout to CreateTask view, to create a new task (likely will have to pass a new TaskEntry object to the view)
+        [HttpGet] 
+        public IActionResult CreateTask() 
+        {
+            ViewBag.Categories = _repo.Categories.ToList();
+            return View("CreateTask", new TaskEntry());
+        }
+        //Post Route to CreateTask view, to create a new task
+
+        [HttpPost]
+        public IActionResult CreateTask(TaskEntry t)
+        {
+            if (ModelState.IsValid)
+            {
+                _repo.AddTask(t);
+                ViewBag.Categories = _repo.Categories.ToList();
+                ViewBag.SuccessMessage = "Form submitted successfully!";
+                return View("CreateTask", t);
+            }
+            else
+            {
+                ViewBag.Categories = _repo.Categories.ToList();
+                return View(t);
+            }
+        }
+
+        public IActionResult CompleteTask(int id)
+        {
+            var recordToComplete = _repo.Tasks.Single(x => x.TaskId == id);
+
+            recordToComplete.Completed = true;
+
+            _repo.EditTask(recordToComplete);
+
+            return RedirectToAction("Quadrant");
+        }
+
+        //Get Route to the CreateTask view, but pass it an existing task to edit
+        [HttpGet]
+        public IActionResult Edit(int id)
+        {
+            ViewBag.Categories = _repo.Categories.ToList();
+
+            var recordToEdit = _repo.Tasks
+                .Single(x => x.TaskId == id);
+
+            return View("CreateTask", recordToEdit);
+        }
+
+
+
+        //Post Route to the CreateTask view, to edit an existing task
+
+        [HttpPost]
+        public IActionResult Edit(TaskEntry updatedTask)
+        {
+            if (ModelState.IsValid)
+            {
+                // access repo to edit task
+                _repo.EditTask(updatedTask);
+
+                return RedirectToAction("Quadrant");
+            }
+            else
+            {
+                return View("CreateTask", updatedTask);
+            }
+        }
+        //Get Route to the DeleteTask view, to delete an existing task
+        [HttpGet]
+        public IActionResult Delete(int id)
+        {
+            var recordToDelete = _repo.Tasks
+                .Single(x => x.TaskId == id);
+
+            return View(recordToDelete);
+        }
+        //Post Route to the DeleteTask view, to delete an existing task
+        [HttpPost]
+
+        public IActionResult Delete(TaskEntry record)
+        {
+            _repo.DeleteTask(record);
+
+            return RedirectToAction("Quadrant");
+        }
+
+
     }
 }
