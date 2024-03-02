@@ -1,4 +1,5 @@
-﻿using Microsoft.EntityFrameworkCore.Metadata.Internal;
+﻿using Microsoft.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore.Metadata.Internal;
 
 namespace Mission08_Team0413.Models
 {
@@ -14,7 +15,7 @@ namespace Mission08_Team0413.Models
         }
 
         // get list of tasks from temp file
-        public List<TaskEntry> Tasks => _context.Tasks.ToList();
+        public List<TaskEntry> Tasks => _context.Tasks.Include(x => x.Category).ToList();
 
         // get list of categories
         public List<Category> Categories => _context.Categories.ToList();

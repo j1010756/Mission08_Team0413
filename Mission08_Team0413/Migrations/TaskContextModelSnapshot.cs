@@ -63,7 +63,7 @@ namespace Mission08_Team0413.Migrations
                     b.Property<int?>("CategoryId")
                         .HasColumnType("INTEGER");
 
-                    b.Property<bool?>("Completed")
+                    b.Property<bool>("Completed")
                         .HasColumnType("INTEGER");
 
                     b.Property<DateOnly?>("DueDate")

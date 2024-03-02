@@ -11,7 +11,7 @@ using Mission08_Team0413.Models;
 namespace Mission08_Team0413.Migrations
 {
     [DbContext(typeof(TaskContext))]
-    [Migration("20240229225212_Initial")]
+    [Migration("20240302003623_Initial")]
     partial class Initial
     {
         /// <inheritdoc />
@@ -66,7 +66,7 @@ namespace Mission08_Team0413.Migrations
                     b.Property<int?>("CategoryId")
                         .HasColumnType("INTEGER");
 
-                    b.Property<bool?>("Completed")
+                    b.Property<bool>("Completed")
                         .HasColumnType("INTEGER");
 
                     b.Property<DateOnly?>("DueDate")

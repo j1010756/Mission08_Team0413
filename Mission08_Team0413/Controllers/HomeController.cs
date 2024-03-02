@@ -41,9 +41,21 @@ namespace Mission08_Team0413.Controllers
         // Route to the Quadrant view, to display the tasks in the respective quadrants
         public IActionResult Quadrant()
         {
-            var tasks = _repo.Tasks.ToList();
+            var taskList = _repo.Tasks.Where(x => !x.Completed).ToList();
 
-            return View(tasks);
+            Dictionary<int,List<TaskEntry>> taskDict = new Dictionary<int,List<TaskEntry>>();
+
+            foreach (TaskEntry task in taskList)
+            {
+                if (!taskDict.ContainsKey(task.Quadrant))
+                {
+                    taskDict.Add(task.Quadrant, new List<TaskEntry>());
+                }
+
+                taskDict[task.Quadrant].Add(task);
+            }
+
+            return View(taskDict);
         }
 
         //Get Rout to CreateTask view, to create a new task (likely will have to pass a new TaskEntry object to the view)
@@ -72,10 +84,23 @@ namespace Mission08_Team0413.Controllers
             }
         }
 
+        public IActionResult CompleteTask(int id)
+        {
+            var recordToComplete = _repo.Tasks.Single(x => x.TaskId == id);
+
+            recordToComplete.Completed = true;
+
+            _repo.EditTask(recordToComplete);
+
+            return RedirectToAction("Quadrant");
+        }
+
         //Get Route to the CreateTask view, but pass it an existing task to edit
         [HttpGet]
         public IActionResult Edit(int id)
         {
+            ViewBag.Categories = _repo.Categories.ToList();
+
             var recordToEdit = _repo.Tasks
                 .Single(x => x.TaskId == id);
 
